@@ -62,10 +62,10 @@ public class ScrollingScoreboardHandler {
 		get(name).annonce(msg, slot);
 	}
 
-	public void setBoard(Player player) {
+	public void setBoard(Player player) {//TODO Something is going wrong here. Lets thing about it tomorrow...
 		for (ScrollingScoreBoard ssb : boards) {
 			if (!ssb.useWorldWhiteList()
-					&& ssb.isGroupBlackListed(player.getName())) {
+					&& ssb.isPlayerBlackListed(player.getName())) {
 				continue;
 			}
 			if (!ssb.useWorldWhiteList()
