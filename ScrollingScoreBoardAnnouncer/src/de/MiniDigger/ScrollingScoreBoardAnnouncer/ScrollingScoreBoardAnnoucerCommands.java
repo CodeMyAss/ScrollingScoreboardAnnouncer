@@ -71,7 +71,7 @@ public class ScrollingScoreBoardAnnoucerCommands implements CommandExecutor {
 							+ " You dont have permmsions to use that command!");
 					return true;
 				}
-				if (args.length < 1) {
+				if (args.length < 2) {
 					sender.sendMessage(ChatColor.YELLOW
 							+ ScrollingScoreBoardAnnouncer.prefix
 							+ " Creates a new command with the name <arg1> ");
