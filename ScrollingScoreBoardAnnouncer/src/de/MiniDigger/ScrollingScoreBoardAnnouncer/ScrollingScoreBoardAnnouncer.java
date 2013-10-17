@@ -42,6 +42,10 @@ public class ScrollingScoreBoardAnnouncer extends JavaPlugin {
 		debug = config.getBoolean("debug");
 		update = config.getBoolean("update");
 		isUpdateAvailable = false;
+		
+		getServer().getPluginCommand("scrollignscoreboardannouncer").setExecutor(new ScrollingScoreBoardAnnoucerCommands());
+		getServer().getPluginCommand("announce").setExecutor(new ScrollingScoreBoardAnnoucerCommands());
+		
 		ConfigurationSerialization.registerClass(ScrollingScoreBoard.class,
 				"ScrollingScoreBoard");
 		getServer().getPluginManager().registerEvents(
