@@ -3,6 +3,7 @@ version: 1.0.0
 author: MiniDigger
 main: de.MiniDigger.ScrollingScoreBoardAnnouncer.ScrollingScoreBoardAnnouncer
 website: http://dev.bukkit.org/bukkit-plugins/scrolling-scoreboard-announcer
+depend: [Vault]
 commands:
     announce:
         description: This command allows you to change the displayed text of a scoreboard

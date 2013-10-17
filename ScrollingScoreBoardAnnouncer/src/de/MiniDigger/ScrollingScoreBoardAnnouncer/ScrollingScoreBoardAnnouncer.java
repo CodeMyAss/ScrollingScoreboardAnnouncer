@@ -3,10 +3,13 @@ package de.MiniDigger.ScrollingScoreBoardAnnouncer;
 import java.io.File;
 import java.io.IOException;
 
+import net.milkbowl.vault.permission.Permission;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import de.MiniDigger.ScrollingScoreBoardAnnouncer.Updater.UpdateType;
@@ -19,6 +22,7 @@ public class ScrollingScoreBoardAnnouncer extends JavaPlugin {
 	public static ScrollingScoreboardHandler handler;
 	public static ScrollingScoreBoardConfig config;
 	public static ScrollingScoreBoardConfig ssb_config;
+	public static Permission perms = null;
 
 	private static boolean debug;
 	private boolean update;
@@ -40,7 +44,18 @@ public class ScrollingScoreBoardAnnouncer extends JavaPlugin {
 		isUpdateAvailable = false;
 		ConfigurationSerialization.registerClass(ScrollingScoreBoard.class,
 				"ScrollingScoreBoard");
-		getServer().getPluginManager().registerEvents(new ScrollingScoreBoardListener(), plugin);
+		getServer().getPluginManager().registerEvents(
+				new ScrollingScoreBoardListener(), plugin);
+
+		boolean b = false;
+		try {
+			b = setupPermissions();
+		} catch (Exception e) {
+			error("Failed to setup Permissions! Make sure you have Vault installed!");
+		}
+		if (!b) {
+			error("Failed to setup Permissions! Make sure you have Vault installed!");
+		}
 
 		if (update) {
 			Updater u = new Updater(plugin, 1, plugin.getFile(),
@@ -79,6 +94,16 @@ public class ScrollingScoreBoardAnnouncer extends JavaPlugin {
 		handler = new ScrollingScoreboardHandler();
 		handler.init(ssb_config);
 		info("Enabled");
+	}
+
+	private boolean setupPermissions() {
+		RegisteredServiceProvider<Permission> permissionProvider = getServer()
+				.getServicesManager().getRegistration(
+						net.milkbowl.vault.permission.Permission.class);
+		if (permissionProvider != null) {
+			perms = permissionProvider.getProvider();
+		}
+		return (perms != null);
 	}
 
 	public static Plugin getInstance() {
