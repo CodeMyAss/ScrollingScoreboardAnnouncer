@@ -37,8 +37,10 @@ public class ScrollingScoreboardHandler {
 	}
 
 	public void create(String name) {
+		loadAll();
 		ScrollingScoreBoard ssc = new ScrollingScoreBoard(name);
 		boards.add(ssc);
+		saveAll();
 	}
 
 	public void delete(String name) {
