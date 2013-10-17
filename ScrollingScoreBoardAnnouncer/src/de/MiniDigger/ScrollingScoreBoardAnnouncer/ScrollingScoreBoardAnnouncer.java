@@ -36,6 +36,10 @@ public class ScrollingScoreBoardAnnouncer extends JavaPlugin {
 		file = this.getFile();
 		info("Enabling " + name + " " + getDescription().getVersion()
 				+ " by MiniDigger");
+		
+		ConfigurationSerialization.registerClass(ScrollingScoreBoard.class,
+				"ScrollingScoreBoard");
+		
 		config = new ScrollingScoreBoardConfig("config.yml");
 		ssb_config = new ScrollingScoreBoardConfig("boards.yml");
 
@@ -46,8 +50,6 @@ public class ScrollingScoreBoardAnnouncer extends JavaPlugin {
 		getServer().getPluginCommand("scrollingscoreboardannouncer").setExecutor(new ScrollingScoreBoardAnnoucerCommands());
 		getServer().getPluginCommand("announce").setExecutor(new ScrollingScoreBoardAnnoucerCommands());
 		
-		ConfigurationSerialization.registerClass(ScrollingScoreBoard.class,
-				"ScrollingScoreBoard");
 		getServer().getPluginManager().registerEvents(
 				new ScrollingScoreBoardListener(), plugin);
 
