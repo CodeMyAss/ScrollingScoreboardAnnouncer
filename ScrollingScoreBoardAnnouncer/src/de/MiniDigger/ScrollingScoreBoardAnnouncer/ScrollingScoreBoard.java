@@ -309,45 +309,39 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 	}
 
 	public boolean isPlayerWhiteListed(String name) {
-		if (!usePlayerWhitelist) {
-			return false;
-		}
 		return white_listed_players.contains(name);
 	}
 
 	public boolean isWorldWhiteListed(String name) {
-		if (!useWorldWhitelist) {
-			return false;
-		}
 		return white_listed_worlds.contains(name);
 	}
 
 	public boolean isGroupWhiteListed(String name) {
-		if (!useGroupWhitelist) {
-			return false;
-		}
 		return white_listed_groups.contains(name);
 	}
 
 	public boolean isPlayerBlackListed(String name) {
-		if (usePlayerWhitelist) {
-			return false;
-		}
 		return black_listed_players.contains(name);
 	}
 
 	public boolean isWorldBlackListed(String name) {
-		if (useWorldWhitelist) {
-			return false;
-		}
 		return black_listed_worlds.contains(name);
 	}
 
 	public boolean isGroupBlackListed(String name) {
-		if (useGroupWhitelist) {
-			return false;
-		}
 		return black_listed_groups.contains(name);
+	}
+
+	public boolean usePlayerWhiteList() {
+		return usePlayerWhitelist;
+	}
+
+	public boolean useWorldWhiteList() {
+		return useWorldWhitelist;
+	}
+
+	public boolean useGroupWhiteList() {
+		return useGroupWhitelist;
 	}
 
 }
