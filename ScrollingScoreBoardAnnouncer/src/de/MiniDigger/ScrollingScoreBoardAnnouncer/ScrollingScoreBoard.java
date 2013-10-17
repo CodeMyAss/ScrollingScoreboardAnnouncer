@@ -222,7 +222,7 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 
 		ssb.usePlayerWhitelist = (boolean) args.get("usePlayerWhitelist");
 		ssb.useWorldWhitelist = (boolean) args.get("useWorldWhitelist");
-		ssb.useGroupWhitelist = (boolean) args.get("useGroup/Whitelist");
+		ssb.useGroupWhitelist = (boolean) args.get("useGroupWhitelist");
 		return ssb;
 	}
 
