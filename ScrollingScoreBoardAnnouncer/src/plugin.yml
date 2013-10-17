@@ -10,5 +10,5 @@ commands:
         usage: /announce <board> <slot> <the> <text> <you> <want> <to> <display>
     scrollingscoreboardannouncer:
         description: Displays some infos and updates the plugin
-        usage: /scrollingscoreboardannouncer update
+        usage: /scrollingscoreboardannouncer <update>/<create> <name>/<reload>
         aliases: [ssa]
