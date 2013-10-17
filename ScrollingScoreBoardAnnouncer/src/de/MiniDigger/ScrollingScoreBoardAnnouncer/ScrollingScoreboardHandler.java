@@ -6,9 +6,9 @@ import org.bukkit.entity.Player;
 
 public class ScrollingScoreboardHandler {
 
-	private ScrollingScoreBoardConfig	                      config;
+	private ScrollingScoreBoardConfig config;
 
-	public ArrayList<ScrollingScoreBoard>	boards	= new ArrayList<>();
+	public ArrayList<ScrollingScoreBoard> boards = new ArrayList<>();
 
 	public void init(ScrollingScoreBoardConfig ssb_config) {
 		config = ssb_config;
@@ -61,25 +61,30 @@ public class ScrollingScoreboardHandler {
 	}
 
 	public void setBoard(Player player) {
-		for(ScrollingScoreBoard ssb : boards){
-			if(!ssb.useWorldWhiteList() && ssb.isGroupBlackListed(player.getName())){
+		for (ScrollingScoreBoard ssb : boards) {
+			if (!ssb.useWorldWhiteList()
+					&& ssb.isGroupBlackListed(player.getName())) {
 				continue;
 			}
-			if(!ssb.useWorldWhiteList() && ssb.isWorldBlackListed(player.getWorld().getName())){
+			if (!ssb.useWorldWhiteList()
+					&& ssb.isWorldBlackListed(player.getWorld().getName())) {
 				continue;
 			}
-			if(!ssb.useGroupWhiteList() && ssb.isGroupBlackListed("")){
+			if (!ssb.useGroupWhiteList()
+					&& ssb.isGroupBlackListed(ScrollingScoreBoardAnnouncer.perms
+							.getPrimaryGroup(player))) {
 				continue;
 			}
-			if(ssb.isPlayerWhiteListed(player.getName())){
+			if (ssb.isPlayerWhiteListed(player.getName())) {
 				player.setScoreboard(ssb.board);
 				break;
 			}
-			if(ssb.isWorldWhiteListed(player.getWorld().getName())){
+			if (ssb.isWorldWhiteListed(player.getWorld().getName())) {
 				player.setScoreboard(ssb.board);
 				break;
 			}
-			if(ssb.isGroupWhiteListed("")){
+			if (ssb.isGroupWhiteListed(ScrollingScoreBoardAnnouncer.perms
+					.getPrimaryGroup(player))) {
 				player.setScoreboard(ssb.board);
 				break;
 			}
