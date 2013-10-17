@@ -1,6 +1,7 @@
 name: ScrollingScoreBoardAnnouncer
-version: 1.0
+version: 1.0.0
 author: MiniDigger
+main: de.MiniDigger.ScrollingScoreBoardAnnouncer.ScrollingScoreBoardAnnouncer
 website: http://dev.bukkit.org/bukkit-plugins/scrolling-scoreboard-announcer
 commands:
     announce:
