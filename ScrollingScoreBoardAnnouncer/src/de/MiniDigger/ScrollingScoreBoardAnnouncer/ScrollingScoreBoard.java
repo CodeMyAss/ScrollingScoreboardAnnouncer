@@ -25,13 +25,13 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 	private String title_msg;
 	private String title_color;
 	private String title_idle_msg;
-	private Integer[] slot_lengths;
-	private Integer[] slot_delays;
-	private Integer[] slot_taskids;
-	private Integer[] slot_indexs;
-	private String[] slot_msgs;
-	private String[] slot_colors;
-	private String[] slot_idle_msgs;
+	private ArrayList<Integer> slot_lengths;
+	private ArrayList<Integer> slot_delays;
+	private ArrayList<Integer> slot_taskids;
+	private ArrayList<Integer> slot_indexs;
+	private ArrayList<String> slot_msgs;
+	private ArrayList<String> slot_colors;
+	private ArrayList<String> slot_idle_msgs;
 
 	private boolean usePlayerWhitelist;
 	private ArrayList<String> white_listed_players;
@@ -56,21 +56,82 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 		this.title_msg = "Title";
 		this.title_color = ChatColor.RED + "";
 		this.title_idle_msg = "Idle Title";
-		this.slot_lengths = new Integer[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
-		this.slot_delays = new Integer[] { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 };
-		this.slot_taskids = new Integer[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		this.slot_indexs = new Integer[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		this.slot_msgs = new String[] { "msg1", "msg2", "msg3", "msg4", "msg5",
-				"msg6", "msg7", "msg8", "msg9", "msg10" };
-		this.slot_colors = new String[] { ChatColor.YELLOW.toString(),
-				ChatColor.RED.toString(), ChatColor.YELLOW.toString(),
-				ChatColor.RED.toString(), ChatColor.YELLOW.toString(),
-				ChatColor.RED.toString(), ChatColor.YELLOW.toString(),
-				ChatColor.RED.toString(), ChatColor.YELLOW.toString(),
-				ChatColor.RED.toString() };
-		this.slot_idle_msgs = new String[] { "idle_msg1", "idle_msg2",
-				"idle_msg3", "idle_msg4", "idle_msg5", "idle_msg6",
-				"idle_msg7", "idle_msg8", "idle_msg9", "idle_msg10" };
+		this.slot_lengths = new ArrayList<Integer>();
+		this.slot_lengths.add(1);
+		this.slot_lengths.add(1);
+		this.slot_lengths.add(1);
+		this.slot_lengths.add(1);
+		this.slot_lengths.add(1);
+		this.slot_lengths.add(1);
+		this.slot_lengths.add(1);
+		this.slot_lengths.add(1);
+		this.slot_lengths.add(1);
+		this.slot_lengths.add(1);
+		this.slot_delays = new ArrayList<>();
+		this.slot_delays.add(4);
+		this.slot_delays.add(4);
+		this.slot_delays.add(4);
+		this.slot_delays.add(4);
+		this.slot_delays.add(4);
+		this.slot_delays.add(4);
+		this.slot_delays.add(4);
+		this.slot_delays.add(4);
+		this.slot_delays.add(4);
+		this.slot_delays.add(4);
+		this.slot_taskids = new ArrayList<>();
+		this.slot_taskids.add(0);
+		this.slot_taskids.add(0);
+		this.slot_taskids.add(0);
+		this.slot_taskids.add(0);
+		this.slot_taskids.add(0);
+		this.slot_taskids.add(0);
+		this.slot_taskids.add(0);
+		this.slot_taskids.add(0);
+		this.slot_taskids.add(0);
+		this.slot_indexs = new ArrayList<>();
+		this.slot_indexs.add(0);
+		this.slot_indexs.add(0);
+		this.slot_indexs.add(0);
+		this.slot_indexs.add(0);
+		this.slot_indexs.add(0);
+		this.slot_indexs.add(0);
+		this.slot_indexs.add(0);
+		this.slot_indexs.add(0);
+		this.slot_indexs.add(0);
+		this.slot_indexs.add(0);
+		this.slot_msgs = new ArrayList<>();
+		this.slot_msgs.add("msg1");
+		this.slot_msgs.add("msg2");
+		this.slot_msgs.add("msg3");
+		this.slot_msgs.add("msg4");
+		this.slot_msgs.add("msg5");
+		this.slot_msgs.add("msg6");
+		this.slot_msgs.add("msg7");
+		this.slot_msgs.add("msg8");
+		this.slot_msgs.add("msg9");
+		this.slot_msgs.add("msg10");
+		this.slot_colors = new ArrayList<>();
+		this.slot_colors.add(ChatColor.RED.toString());
+		this.slot_colors.add(ChatColor.YELLOW.toString());
+		this.slot_colors.add(ChatColor.RED.toString());
+		this.slot_colors.add(ChatColor.YELLOW.toString());
+		this.slot_colors.add(ChatColor.RED.toString());
+		this.slot_colors.add(ChatColor.YELLOW.toString());
+		this.slot_colors.add(ChatColor.RED.toString());
+		this.slot_colors.add(ChatColor.YELLOW.toString());
+		this.slot_colors.add(ChatColor.RED.toString());
+		this.slot_colors.add(ChatColor.YELLOW.toString());
+		this.slot_idle_msgs = new ArrayList<>();
+		this.slot_idle_msgs.add("idle_msg1");
+		this.slot_idle_msgs.add("idle_msg2");
+		this.slot_idle_msgs.add("idle_msg3");
+		this.slot_idle_msgs.add("idle_msg4");
+		this.slot_idle_msgs.add("idle_msg5");
+		this.slot_idle_msgs.add("idle_msg6");
+		this.slot_idle_msgs.add("idle_msg7");
+		this.slot_idle_msgs.add("idle_msg8");
+		this.slot_idle_msgs.add("idle_msg9");
+		this.slot_idle_msgs.add("idle_msg10");
 
 		white_listed_groups = new ArrayList<>();
 		white_listed_players = new ArrayList<>();
@@ -140,11 +201,11 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 		ssb.title_color = (String) args.get("title_color");
 		ssb.title_idle_msg = (String) args.get("title_idle_msg");
 
-		ssb.slot_lengths = (Integer[]) args.get("slot_lengths");
-		ssb.slot_delays = (Integer[]) args.get("slot_delays");
-		ssb.slot_msgs = (String[]) args.get("slot_msgs");
-		ssb.slot_colors = (String[]) args.get("slot_colors");
-		ssb.slot_idle_msgs = (String[]) args.get("slot_idle_msgs");
+		ssb.slot_lengths = (ArrayList<Integer>) args.get("slot_lengths");
+		ssb.slot_delays = (ArrayList<Integer>) args.get("slot_delays");
+		ssb.slot_msgs = (ArrayList<String>) args.get("slot_msgs");
+		ssb.slot_colors = (ArrayList<String>) args.get("slot_colors");
+		ssb.slot_idle_msgs = (ArrayList<String>) args.get("slot_idle_msgs");
 
 		ssb.white_listed_players = (ArrayList<String>) args
 				.get("white_listed_players");
@@ -186,8 +247,9 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 						}
 					}, 20L * 3, title_delay);
 		} else if (slot >= 0 && slot <= 9) {
-			slot_taskids[slot] = Bukkit.getScheduler()
-					.scheduleSyncRepeatingTask(
+			slot_taskids.set(
+					slot,
+					Bukkit.getScheduler().scheduleSyncRepeatingTask(
 							ScrollingScoreBoardAnnouncer.getInstance(),
 							new Runnable() {
 								private OfflinePlayer player = null;
@@ -199,24 +261,30 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 									}
 									String msg = "";
 									try {
-										msg = slot_colors[slot]
-												+ next(slot_msgs[slot], slot);
+										msg = slot_colors.get(slot)
+												+ next(slot_msgs.get(slot),
+														slot);
 									} catch (Exception e) {
 										// Main.debug("Ex");
 									}
-									if (msg.length() <= slot_colors[slot]
+									if (msg.length() <= slot_colors.get(slot)
 											.length()) {
 										player = Bukkit
-												.getOfflinePlayer(slot_idle_msgs[slot]);
+												.getOfflinePlayer(slot_idle_msgs
+														.get(slot));
 										obj.getScore(player).setScore(slot + 1);
 										cancelTask(slot);
 									} else {
-										slot_indexs[slot] += slot_lengths[slot];
+										slot_indexs.set(
+												slot,
+												slot_indexs.get(slot)
+														+ slot_lengths
+																.get(slot));
 										player = Bukkit.getOfflinePlayer(msg);
 										obj.getScore(player).setScore(slot + 1);
 									}
 								}
-							}, 20L * 3, slot_delays[slot]);
+							}, 20L * 3, slot_delays.get(slot)));
 		} else {
 			ScrollingScoreBoardAnnouncer.debug("Wrong slot number! (" + slot
 					+ ")");
@@ -236,9 +304,11 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 			if (s.length() <= 16) {
 				return s;
 			}
-			return s.substring(slot_indexs[slot], Math.min(slot_indexs[slot]
-					+ 16 - slot_colors[slot].length(), s.length()
-					- slot_colors[slot].length()));
+			return s.substring(
+					slot_indexs.get(slot),
+					Math.min(slot_indexs.get(slot) + 16
+							- slot_colors.get(slot).length(), s.length()
+							- slot_colors.get(slot).length()));
 		} else {
 			ScrollingScoreBoardAnnouncer.debug("Wrong slot number! (" + slot
 					+ ")");
@@ -252,7 +322,7 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 			title_msg = msg;
 			start(ob, -1);
 		} else if (slot >= 0 && slot <= 9) {
-			slot_msgs[slot] = msg;
+			slot_msgs.set(slot, msg);
 			start(ob, slot);
 		} else {
 			ScrollingScoreBoardAnnouncer.debug("Wrong slot number! (" + slot
@@ -270,9 +340,9 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 			title_taskid = 0;
 			title_index = 0;
 		} else if (slot >= 0 && slot <= 9) {
-			Bukkit.getScheduler().cancelTask(slot_taskids[slot]);
-			slot_taskids[slot] = 0;
-			slot_indexs[slot] = 0;
+			Bukkit.getScheduler().cancelTask(slot_taskids.get(slot));
+			slot_taskids.set(slot, 0);
+			slot_indexs.set(slot, 0);
 		} else {
 			ScrollingScoreBoardAnnouncer.debug("Wrong slot number! (" + slot
 					+ ")");
