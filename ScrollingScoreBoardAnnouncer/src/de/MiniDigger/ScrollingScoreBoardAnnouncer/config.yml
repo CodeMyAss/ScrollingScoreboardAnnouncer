@@ -1,4 +1,4 @@
 #Should the plugin desplay debug infos?
 debug: false
-#Should the plugin check for updates? (It will NOT atomaticly install them!)
+#Should the plugin check for updates? (It will NOT automaticly install them!)
 updae: true
