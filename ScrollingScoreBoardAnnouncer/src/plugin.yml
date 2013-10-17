@@ -1,0 +1,12 @@
+name: ScrollingScoreBoardAnnouncer
+version: 1.0
+author: MiniDigger
+website: http://dev.bukkit.org/bukkit-plugins/scrolling-scoreboard-announcer
+commands:
+    announce:
+        description: This command allows you to change the displayed text of a scoreboard
+        usage: /announce <board> <slot> <the> <text> <you> <want> <to> <display>
+    scrollingscoreboardannouncer:
+        description: Displays some infos and updates the plugin
+        usage: /scrollingscoreboardannouncer update
+        aliases: [ssa]
