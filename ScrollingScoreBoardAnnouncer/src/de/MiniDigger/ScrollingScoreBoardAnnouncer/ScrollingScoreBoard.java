@@ -33,12 +33,15 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 	private String[] slot_colors;
 	private String[] slot_idle_msgs;
 
+	private boolean usePlayerWhitelist;
 	private ArrayList<String> white_listed_players;
 	private ArrayList<String> black_listed_players;
 
+	private boolean useWorldWhitelist;
 	private ArrayList<String> white_listed_worlds;
 	private ArrayList<String> black_listed_worlds;
 
+	private boolean useGroupWhitelist;
 	private ArrayList<String> white_listed_groups;
 	private ArrayList<String> black_listed_groups;
 
@@ -119,6 +122,10 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 		result.put("black_listed_players", black_listed_players);
 		result.put("black_listed_worlds", black_listed_worlds);
 		result.put("black_listed_groups", black_listed_groups);
+
+		result.put("usePlayerWhitelist", usePlayerWhitelist);
+		result.put("useWorldWhitelist", useWorldWhitelist);
+		result.put("useGroupWhitelist", useGroupWhitelist);
 		return result;
 	}
 
@@ -152,6 +159,9 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 		ssb.black_listed_groups = (ArrayList<String>) args
 				.get("black_listed_groups");
 
+		ssb.usePlayerWhitelist = (boolean) args.get("usePlayerWhitelist");
+		ssb.useWorldWhitelist = (boolean) args.get("useWorldWhitelist");
+		ssb.useGroupWhitelist = (boolean) args.get("useGroup/Whitelist");
 		return ssb;
 	}
 
@@ -297,4 +307,47 @@ public class ScrollingScoreBoard implements ConfigurationSerializable {
 		start(ob, 8);
 		start(ob, 9);
 	}
+
+	public boolean isPlayerWhiteListed(String name) {
+		if (!usePlayerWhitelist) {
+			return false;
+		}
+		return white_listed_players.contains(name);
+	}
+
+	public boolean isWorldWhiteListed(String name) {
+		if (!useWorldWhitelist) {
+			return false;
+		}
+		return white_listed_worlds.contains(name);
+	}
+
+	public boolean isGroupWhiteListed(String name) {
+		if (!useGroupWhitelist) {
+			return false;
+		}
+		return white_listed_groups.contains(name);
+	}
+
+	public boolean isPlayerBlackListed(String name) {
+		if (usePlayerWhitelist) {
+			return false;
+		}
+		return black_listed_players.contains(name);
+	}
+
+	public boolean isWorldBlackListed(String name) {
+		if (useWorldWhitelist) {
+			return false;
+		}
+		return black_listed_worlds.contains(name);
+	}
+
+	public boolean isGroupBlackListed(String name) {
+		if (useGroupWhitelist) {
+			return false;
+		}
+		return black_listed_groups.contains(name);
+	}
+
 }
