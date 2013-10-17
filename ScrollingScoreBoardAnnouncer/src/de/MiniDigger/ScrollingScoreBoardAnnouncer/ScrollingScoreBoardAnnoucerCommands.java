@@ -14,8 +14,12 @@ public class ScrollingScoreBoardAnnoucerCommands implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String lable,
 			String[] args) {
 		if (cmd.getName().equalsIgnoreCase("announce")) {
-			if(sender instanceof Player && !ScrollingScoreBoardAnnouncer.perms.has(sender, "ssa.announce")){
-				sender.sendMessage(ChatColor.RED + ScrollingScoreBoardAnnouncer.prefix + " You dont have permmsions to use that command!");
+			if (sender instanceof Player
+					&& !ScrollingScoreBoardAnnouncer.perms.has(sender,
+							"ssa.announce")) {
+				sender.sendMessage(ChatColor.RED
+						+ ScrollingScoreBoardAnnouncer.prefix
+						+ " You dont have permmsions to use that command!");
 				return true;
 			}
 			if (args.length < 3) {
@@ -56,21 +60,62 @@ public class ScrollingScoreBoardAnnoucerCommands implements CommandExecutor {
 						+ " in slot " + args[1] + " was changed to " + msg);
 			}
 			return true;
-		}
-		if (cmd.getName().equalsIgnoreCase(ScrollingScoreBoardAnnouncer.name)) {
-			if (args.length == 1 && args[0].equalsIgnoreCase("update")) {
-				if(sender instanceof Player && !ScrollingScoreBoardAnnouncer.perms.has(sender, "ssa.update")){
-					sender.sendMessage(ChatColor.RED + ScrollingScoreBoardAnnouncer.prefix + " You dont have permmsions to use that command!");
+		} else if (cmd.getName().equalsIgnoreCase(
+				ScrollingScoreBoardAnnouncer.name)) {
+			if (args.length != 0 && args[0].equalsIgnoreCase("create")) {
+				if (sender instanceof Player
+						&& !ScrollingScoreBoardAnnouncer.perms.has(sender,
+								"ssa.create")) {
+					sender.sendMessage(ChatColor.RED
+							+ ScrollingScoreBoardAnnouncer.prefix
+							+ " You dont have permmsions to use that command!");
+					return true;
+				}
+				if (args.length < 1) {
+					sender.sendMessage(ChatColor.YELLOW
+							+ ScrollingScoreBoardAnnouncer.prefix
+							+ " Creates a new command with the name <arg1> ");
+					return true;
+				} else {
+					ScrollingScoreBoardAnnouncer.handler.create(args[1]);
+					sender.sendMessage(ChatColor.GOLD
+							+ ScrollingScoreBoardAnnouncer.prefix
+							+ ChatColor.GREEN
+							+ "New Board created. You can edit it now");
+					return true;
+				}
+			} else if (args.length != 0 && args[0].equalsIgnoreCase("reload")) {
+				if (sender instanceof Player
+						&& !ScrollingScoreBoardAnnouncer.perms.has(sender,
+								"ssa.reload")) {
+					sender.sendMessage(ChatColor.RED
+							+ ScrollingScoreBoardAnnouncer.prefix
+							+ " You dont have permmsions to use that command!");
+					return true;
+				}
+				ScrollingScoreBoardAnnouncer.handler.loadAll();
+				ScrollingScoreBoardAnnouncer.config.load();
+				ScrollingScoreBoardAnnouncer.debug = ScrollingScoreBoardAnnouncer.config
+						.getBoolean("debug");
+				ScrollingScoreBoardAnnouncer.update = ScrollingScoreBoardAnnouncer.config
+						.getBoolean("update");
+
+			} else if (args.length != 0 && args[0].equalsIgnoreCase("update")) {
+
+				if (sender instanceof Player
+						&& !ScrollingScoreBoardAnnouncer.perms.has(sender,
+								"ssa.update")) {
+					sender.sendMessage(ChatColor.RED
+							+ ScrollingScoreBoardAnnouncer.prefix
+							+ " You dont have permmsions to use that command!");
 					return true;
 				}
 				if (ScrollingScoreBoardAnnouncer.isUpdateAvailable) {
 					Updater u = new Updater(
 							ScrollingScoreBoardAnnouncer.getInstance(), 1,
 							ScrollingScoreBoardAnnouncer.file,
-							UpdateType.NO_VERSION_CHECK, true); // TODO Wait for
-																// curse to
-					// sync the project to get
-					// the id :D
+							UpdateType.NO_VERSION_CHECK, true);
+					// TODO Wait for curse to sync the project to get the id :D
 					switch (u.getResult()) {
 					case DISABLED:
 						sender.sendMessage(ChatColor.GOLD
@@ -105,12 +150,14 @@ public class ScrollingScoreBoardAnnoucerCommands implements CommandExecutor {
 					case NO_UPDATE:
 						sender.sendMessage(ChatColor.GOLD
 								+ ScrollingScoreBoardAnnouncer.prefix
-								+ ChatColor.YELLOW + " The plugin is up-to-date");
+								+ ChatColor.YELLOW
+								+ " The plugin is up-to-date");
 						break;
 					case SUCCESS:
 						sender.sendMessage(ChatColor.GOLD
 								+ ScrollingScoreBoardAnnouncer.prefix
-								+ ChatColor.GREEN + " Plugin updated! Please reload your server!");
+								+ ChatColor.GREEN
+								+ " Plugin updated! Please reload your server!");
 					default:
 						break;
 					}
@@ -157,25 +204,27 @@ public class ScrollingScoreBoardAnnoucerCommands implements CommandExecutor {
 					case NO_UPDATE:
 						sender.sendMessage(ChatColor.GOLD
 								+ ScrollingScoreBoardAnnouncer.prefix
-								+ ChatColor.YELLOW + " The plugin is up-to-date");
+								+ ChatColor.YELLOW
+								+ " The plugin is up-to-date");
 						break;
 					default:
 						break;
 
 					}
 				}
+			} else {
+				sender.sendMessage(ScrollingScoreBoardAnnouncer.prefix
+						+ ChatColor.YELLOW
+						+ " This server is using "
+						+ ScrollingScoreBoardAnnouncer.name
+						+ " "
+						+ ScrollingScoreBoardAnnouncer.getInstance()
+								.getDescription().getVersion());
+				sender.sendMessage(ScrollingScoreBoardAnnouncer.prefix
+						+ ChatColor.YELLOW
+						+ " If you want to see more of my plugins check out http://dev.bukkit.org/profiles/MiniDigger/");
+				return true;
 			}
-			sender.sendMessage(ScrollingScoreBoardAnnouncer.prefix
-					+ ChatColor.YELLOW
-					+ " This server is using "
-					+ ScrollingScoreBoardAnnouncer.name
-					+ " "
-					+ ScrollingScoreBoardAnnouncer.getInstance()
-							.getDescription().getVersion());
-			sender.sendMessage(ScrollingScoreBoardAnnouncer.prefix
-					+ ChatColor.YELLOW
-					+ " If you want to see more of my plugins check out http://dev.bukkit.org/profiles/MiniDigger/");
-			return true;
 		}
 		return true;
 	}

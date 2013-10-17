@@ -24,8 +24,8 @@ public class ScrollingScoreBoardAnnouncer extends JavaPlugin {
 	public static ScrollingScoreBoardConfig ssb_config;
 	public static Permission perms = null;
 
-	private static boolean debug;
-	private boolean update;
+	public static boolean debug;
+	public static boolean update;
 
 	public static String prefix = "[SSA]";
 	public static String name = "ScrollingScoreBoardAnnouncer";
