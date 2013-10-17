@@ -37,7 +37,7 @@ public class ScrollingScoreBoardConfig {
 	 * Läd die Config wenn möglich oder erstellt eine neue
 	 */
 	public void load() {
-		this.configFile = new File("plugins/SpieleSystem/" + name);
+		this.configFile = new File("plugins/ScrollingScoreBoardAnnouncer/" + name);
 
 		if (!this.configFile.exists()) {
 			try {
