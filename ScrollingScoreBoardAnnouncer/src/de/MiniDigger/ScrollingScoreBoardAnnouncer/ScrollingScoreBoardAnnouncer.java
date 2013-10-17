@@ -37,9 +37,10 @@ public class ScrollingScoreBoardAnnouncer extends JavaPlugin {
 
 		debug = config.getBoolean("debug");
 		update = config.getBoolean("update");
-isUpdateAvailable = false;
+		isUpdateAvailable = false;
 		ConfigurationSerialization.registerClass(ScrollingScoreBoard.class,
 				"ScrollingScoreBoard");
+		getServer().getPluginManager().registerEvents(new ScrollingScoreBoardListener(), plugin);
 
 		if (update) {
 			Updater u = new Updater(plugin, 1, plugin.getFile(),
@@ -69,10 +70,10 @@ isUpdateAvailable = false;
 			}
 		}
 		try {
-		    Metrics metrics = new Metrics(this);
-		    metrics.start();
+			Metrics metrics = new Metrics(this);
+			metrics.start();
 		} catch (IOException e) {
-		    error("Failed to submit the Metrics-Stats");
+			error("Failed to submit the Metrics-Stats");
 		}
 
 		handler = new ScrollingScoreboardHandler();
