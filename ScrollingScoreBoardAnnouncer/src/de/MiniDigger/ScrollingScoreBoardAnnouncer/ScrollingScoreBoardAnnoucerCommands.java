@@ -213,14 +213,16 @@ public class ScrollingScoreBoardAnnoucerCommands implements CommandExecutor {
 					}
 				}
 			} else {
-				sender.sendMessage(ScrollingScoreBoardAnnouncer.prefix
+				sender.sendMessage(ChatColor.GOLD
+						+ ScrollingScoreBoardAnnouncer.prefix
 						+ ChatColor.YELLOW
 						+ " This server is using "
 						+ ScrollingScoreBoardAnnouncer.name
 						+ " "
 						+ ScrollingScoreBoardAnnouncer.getInstance()
 								.getDescription().getVersion());
-				sender.sendMessage(ScrollingScoreBoardAnnouncer.prefix
+				sender.sendMessage(ChatColor.GOLD
+						+ ScrollingScoreBoardAnnouncer.prefix
 						+ ChatColor.YELLOW
 						+ " If you want to see more of my plugins check out http://dev.bukkit.org/profiles/MiniDigger/");
 				return true;
