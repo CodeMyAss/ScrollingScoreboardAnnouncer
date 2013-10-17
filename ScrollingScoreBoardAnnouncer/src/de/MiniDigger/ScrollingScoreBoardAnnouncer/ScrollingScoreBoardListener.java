@@ -9,12 +9,12 @@ public class ScrollingScoreBoardListener implements Listener{
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e){
-		ScrollingScoreBoardAnnouncer.handler.join(e.getPlayer());
+		ScrollingScoreBoardAnnouncer.handler.setBoard(e.getPlayer());
 	}
 	
 	@EventHandler
 	public void onPlayerChangedWorld(PlayerChangedWorldEvent e){
-		ScrollingScoreBoardAnnouncer.handler.changedWorld(e.getPlayer());
+		ScrollingScoreBoardAnnouncer.handler.setBoard(e.getPlayer());
 	}
 
 }

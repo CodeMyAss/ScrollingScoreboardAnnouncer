@@ -2,6 +2,8 @@ package de.MiniDigger.ScrollingScoreBoardAnnouncer;
 
 import java.util.ArrayList;
 
+import org.bukkit.entity.Player;
+
 public class ScrollingScoreboardHandler {
 
 	private ScrollingScoreBoardConfig	                      config;
@@ -34,14 +36,8 @@ public class ScrollingScoreboardHandler {
 		return null;
 	}
 
-	public void create(String name, int title_length, int title_delay,
-	        String title_msg, String title_color, String title_idle_msg,
-	        Integer[] slot_lengths, Integer[] slot_delays, String[] slot_msgs,
-	        String[] slot_colors, String[] slot_idle_msgs) {
-		ScrollingScoreBoard ssc = new ScrollingScoreBoard(name, title_length,
-		        title_delay, title_msg, title_color, title_idle_msg,
-		        slot_lengths, slot_delays, slot_msgs, slot_colors,
-		        slot_idle_msgs);
+	public void create(String name) {
+		ScrollingScoreBoard ssc = new ScrollingScoreBoard(name);
 		boards.add(ssc);
 	}
 
@@ -62,5 +58,31 @@ public class ScrollingScoreboardHandler {
 
 	public void announce(String name, String msg, int slot) {
 		get(name).annonce(msg, slot);
+	}
+
+	public void setBoard(Player player) {
+		for(ScrollingScoreBoard ssb : boards){
+			if(!ssb.useWorldWhiteList() && ssb.isGroupBlackListed(player.getName())){
+				continue;
+			}
+			if(!ssb.useWorldWhiteList() && ssb.isWorldBlackListed(player.getWorld().getName())){
+				continue;
+			}
+			if(!ssb.useGroupWhiteList() && ssb.isGroupBlackListed("")){
+				continue;
+			}
+			if(ssb.isPlayerWhiteListed(player.getName())){
+				player.setScoreboard(ssb.board);
+				break;
+			}
+			if(ssb.isWorldWhiteListed(player.getWorld().getName())){
+				player.setScoreboard(ssb.board);
+				break;
+			}
+			if(ssb.isGroupWhiteListed("")){
+				player.setScoreboard(ssb.board);
+				break;
+			}
+		}
 	}
 }
